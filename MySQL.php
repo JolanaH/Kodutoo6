@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kodutöö 6</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ticket-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,6 +26,7 @@
         return date('Y-m-d', strtotime($date));
     }
 
+
     
     
     
@@ -30,10 +38,8 @@
 
     if ($resultResolvedTickets && mysqli_num_rows($resultResolvedTickets) > 0) {
         while ($rowResolved = mysqli_fetch_assoc($resultResolvedTickets)) {
-            echo '<div class="card mb-3">';
-            echo '<div class="card-body">';
-            echo '<h5 class="card-title">' . $rowResolved['issue_description'] . '</h5>';
-            echo '</div>';
+            echo '<div class="ticket-box">';
+            echo '<p>' . $rowResolved['issue_description'] . '</p>';
             echo '</div>';
         }
     } else {
@@ -41,6 +47,7 @@
         echo '<p class="small-font">No resolved tickets were found.</p>';
     }
     echo '</div>';
+
 
     
     
@@ -54,12 +61,8 @@
     if ($resultAvgDuration && mysqli_num_rows($resultAvgDuration) > 0) {
         $rowAvg = mysqli_fetch_assoc($resultAvgDuration);
         $avgDuration = round($rowAvg['avg_duration'], 2);
-
-        echo '<div class="card">';
-        echo '<div class="card-body">';
-        echo '<h5 class="card-title">Average Estimated Duration:</h5>';
-        echo '<p class="card-text">' . $avgDuration . ' hours</p>';
-        echo '</div>';
+        echo '<div class="ticket-box">';
+        echo '<p>Average Estimated Duration: ' . $avgDuration . ' hours</p>';
         echo '</div>';
     } else {
         echo '<h3>Average Estimated Duration for Open Tickets:</h3>';
@@ -79,10 +82,8 @@
 
     if ($resultAssignedTickets && mysqli_num_rows($resultAssignedTickets) > 0) {
         while ($rowAssigned = mysqli_fetch_assoc($resultAssignedTickets)) {
-            echo '<div class="card mb-3">';
-            echo '<div class="card-body">';
-            echo '<h5 class="card-title">' . $rowAssigned['issue_description'] . '</h5>';
-            echo '</div>';
+            echo '<div class="ticket-box">';
+            echo '<p>' . $rowAssigned['issue_description'] . '</p>';
             echo '</div>';
         }
     } else {
@@ -104,10 +105,8 @@
 
     if ($resultOpenTicketsBeforeDate && mysqli_num_rows($resultOpenTicketsBeforeDate) > 0) {
         while ($rowOpen = mysqli_fetch_assoc($resultOpenTicketsBeforeDate)) {
-            echo '<div class="card mb-3">';
-            echo '<div class="card-body">';
-            echo '<h5 class="card-title">' . $rowOpen['issue_description'] . '</h5>';
-            echo '</div>';
+            echo '<div class="ticket-box">';
+            echo '<p>' . $rowOpen['issue_description'] . '</p>';
             echo '</div>';
         }
     } else {
@@ -115,6 +114,9 @@
         echo '<p class="small-font">None</p>';
     }
     echo '</div>';
+    
+    
+    
 
     mysqli_close($yhendus);
     ?>
